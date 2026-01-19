@@ -14,8 +14,21 @@ const getProducts = async (filters, sort, select, skip, limit) => {
 
 	return query; //return await query;
 };
+const getSingleProduct = async (productId) => {
+	const product = await Product.findOne({ _id: productId });
+	return product;
+};
+const createProduct = async () => {};
+const updateProduct = async () => {};
+const deleteProduct = async () => {};
 
-export default { getProducts };
+export default {
+	getProducts,
+	getSingleProduct,
+	createProduct,
+	updateProduct,
+	deleteProduct,
+};
 
 // let result = Product.find(filters);
 // if(sort){

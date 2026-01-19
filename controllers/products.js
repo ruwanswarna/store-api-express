@@ -61,14 +61,40 @@ const getProducts = async (req, res) => {
 		sortList,
 		fieldList,
 		skip,
-		limit
+		limit,
 	);
 	res
 		.status(200)
 		.json({ success: true, data: { products, nbHits: products.length } });
 };
+
+const getSingleProduct = async (req, res) => {
+	const { id } = req.params;
+	const product = await productService.getSingleProduct(id);
+	if(!product){
+
+	}
+	res.status(200).json({ success: true, data: product });
+};
+const createProduct = async (req, res) => {
+	
+	res.status(200).json({ success: true });
+};
+const updateProduct = async (req, res) => {
+	res.status(200).json({ success: true });
+};
+const deleteProduct = async (req, res) => {
+	res.status(200).json({ success: true });
+};
 const checkHealth = async (req, res) => {
 	res.status(200).json({ msg: "route is ok" });
 };
 
-export { getProducts, checkHealth };
+export default {
+	getProducts,
+	getSingleProduct,
+	createProduct,
+	updateProduct,
+	deleteProduct,
+	checkHealth,
+};
