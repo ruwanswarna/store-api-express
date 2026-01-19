@@ -1,3 +1,4 @@
+import { createCustomError } from "../errors/custom-errors.js";
 import productService from "../services/products.js";
 const getProducts = async (req, res) => {
 	//throw new Error("testing async errors!!!!");
@@ -71,19 +72,32 @@ const getProducts = async (req, res) => {
 const getSingleProduct = async (req, res) => {
 	const { id } = req.params;
 	const product = await productService.getSingleProduct(id);
-	if(!product){
-
+	if (!product) {
+		throw createCustomError("no product with this id", 404);
 	}
 	res.status(200).json({ success: true, data: product });
 };
 const createProduct = async (req, res) => {
-	
-	res.status(200).json({ success: true });
+	const product = await productService.createProduct(req.body);
+	if (!product) {
+		throw createCustomError("could not create product", 400);
+	}
+	res.status(200).json({ success: true, data: product });
 };
 const updateProduct = async (req, res) => {
-	res.status(200).json({ success: true });
+	const { id } = req.params;
+	const product = await productService.updateProduct(id, req.body);
+	if (!product) {
+		throw createCustomError("no product with this id", 404);
+	}
+	res.status(200).json({ success: true, data: product });
 };
 const deleteProduct = async (req, res) => {
+	const { id } = req.params;
+	const product = await productService.deleteProduct(id);
+	if (!product) {
+		throw createCustomError("no product with this id", 404);
+	}
 	res.status(200).json({ success: true });
 };
 const checkHealth = async (req, res) => {

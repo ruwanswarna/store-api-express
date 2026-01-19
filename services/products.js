@@ -18,9 +18,21 @@ const getSingleProduct = async (productId) => {
 	const product = await Product.findOne({ _id: productId });
 	return product;
 };
-const createProduct = async () => {};
-const updateProduct = async () => {};
-const deleteProduct = async () => {};
+const createProduct = async (productData) => {
+	const product = await Product.create(productData);
+	return product;
+};
+const updateProduct = async (productId, productData) => {
+	const product = await Product.findByIdAndUpdate(productId,productData, {
+		new: true,
+		runValidators: true,
+	});
+	return product;
+};
+const deleteProduct = async (productId) => {
+	const product = await Product.findOneAndDelete({ _id: productId });
+	return product;
+};
 
 export default {
 	getProducts,
